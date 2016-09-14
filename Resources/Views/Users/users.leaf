@@ -1,0 +1,42 @@
+#embed("embeds/header")
+
+#if(newUser) {
+<h3>#(newUser.name) added !</h3>
+}
+#if(deletedUser) {
+<h3>#(deletedUser.name) deleted !</h3>
+}
+#if(updatedUser) {
+<h3>#(updatedUser.name) updated !</h3>
+}
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+
+#loop(users, "user") {
+  <tr>
+    <td><strong>#(user.name)</strong></td>
+    <td>#(user.email)</td>
+    <td><a href="/users/#(user.id)">Show</a> | <a href="/users/#(user.id)">Update</a> | <a href="/users/destroy/#(user.id)">Delete</a></td>
+
+    #if(user.posts) {
+      #loop(user.posts, "post") {
+        <tr>
+        <td>--> #(post.title)<br/></td>
+        </tr>
+      }
+    }
+  </tr>
+}
+</table>
+<br/><br/>
+<form method="post" action="/users">
+  Name:<br>
+  <input type="text" name="name"><br/>
+  <input type="text" name="email">
+  <br>
+  <input type="submit" value="Submit">
+</form>

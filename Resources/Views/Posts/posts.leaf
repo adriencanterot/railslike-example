@@ -1,0 +1,44 @@
+#embed("embeds/header")
+
+#if(newPost) {
+<h3>#(newPost.title) added !</h3>
+}
+#if(deletedPost) {
+<h3>#(deletedPost.title) deleted !</h3>
+}
+#if(updatedPost) {
+<h3>#(updatedPost.title) updated !</h3>
+}
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Content</th>
+    <th>Author</th>
+    <th>Actions</th>
+  </tr>
+
+#loop(posts, "post") {
+  <tr>
+    <td>#(post.title)</td>
+    <td>#(post.content)</td>
+    <td>#(post.user.name)</td>
+    <td><a href="/posts/#(post.id)">Show</a> | <a href="/posts/#(post.id)">Update</a> | <a href="/posts/destroy/#(post.id)">Delete</a></td>
+  </tr>
+}
+</table>
+<br/><br/>
+<form method="post" action="/posts">
+  <br/>
+  <select name="postuser">
+    #loop(userList, "user") {
+      <option label="#(user.name)">#(user.id)</option>
+    }
+  </select>
+  <br>
+  Name:<br>
+  <input type="text" name="posttitle"><br/>
+  <br/>
+  <textarea name="postcontent"></textarea>
+  <br/>
+  <input type="submit" value="Submit">
+</form>
