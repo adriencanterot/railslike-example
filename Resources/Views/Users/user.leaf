@@ -1,7 +1,10 @@
 #embed("embeds/header.leaf")
 
 <form class="submit-form" action="/users/update/#(user.id)" method="post">
-  <input type="text" id="username-input" name="username" value="#(user.name)"><br/> <!-- TODO: Localize -->
+  Name<br/>
+  <input type="text" id="name-input" name="name" value="#(user.name)"><br/>
+  Email:</br>
+  <input type="text" id="email-input" name="email" value="#(user.email)"><br/> <!-- TODO: Localize -->
 
   <button type="submit">Update</button> <!-- TODO: Localize -->
 </form>

@@ -36,8 +36,7 @@ final class UserController: ResourceRepresentable {
 
     func update(request: Request, item user: User) throws -> ResponseRepresentable {
         //User is JsonRepresentable
-        var updatedUser = user
-        updatedUser.name = request.data["name"]!.string!
+        var updatedUser = try User(with:request, to:user)
         try updatedUser.save()
         let tree = try User.tree()
         return try drop.view.make("Users/users.leaf", ["users": tree,
@@ -65,7 +64,7 @@ final class UserController: ResourceRepresentable {
 }
 
 extension User {
-    public convenience init(with request:Request) throws {
+    public convenience init(with request:Request, to user:User? = nil) throws {
         guard let name = request.data["name"]?.string,
               let email = request.data["email"]
         else {
@@ -73,5 +72,6 @@ extension User {
         }
         
         try self.init(name:name, email:email.validated())
+        self.id = user?.id
     }
 }

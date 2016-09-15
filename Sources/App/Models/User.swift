@@ -41,10 +41,6 @@ final class User: Model {
             builder.string("email")
             
         }
-        
-        try database.modify(entity) { modifier in
-            modifier.string("password")
-        }
     }
 
     static func revert(_ database: Database) throws {
