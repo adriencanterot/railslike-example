@@ -36,7 +36,10 @@
 <form method="post" action="/users">
   Name:<br>
   <input type="text" name="name"><br/>
+  Email:<br/>
   <input type="text" name="email">
+  Password:<br/>
+  <input type="text" name="password">
   <br>
   <input type="submit" value="Submit">
 </form>

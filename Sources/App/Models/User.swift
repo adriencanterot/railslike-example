@@ -1,27 +1,32 @@
 import Vapor
 import Fluent
+import Turnstile
 
 final class User: Model {
     var id: Node?
     var name: String
     var email: Valid<Email>
+    var password: String
     
-    init(name:String, email:Valid<Email>) {
+    init(name:String, email:Valid<Email>, password:String) {
         self.name = name
         self.email = email
+        self.password = password
     }
 
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         name = try node.extract("name")
         email = try node.extract("email").validated()
+        password = try node.extract("password")
     }
 
     func makeNode() throws -> Node {
         return try Node(node: [
             "id": id,
             "name": name,
-            "email": email.value
+            "email": email.value,
+            "password:": password
         ])
     }
     
@@ -39,7 +44,7 @@ final class User: Model {
             builder.id()
             builder.string("name")
             builder.string("email")
-            
+            builder.string("password")
         }
     }
 
